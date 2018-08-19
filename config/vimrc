@@ -1,0 +1,68 @@
+set nocompatible
+set ruler
+set shiftwidth=4
+set softtabstop=4
+set tabstop=4
+
+set ignorecase smartcase
+set incsearch
+set hlsearch
+set noerrorbells
+set showmatch
+set smartindent
+
+set encoding=utf-8
+
+let mapleader = ';'
+
+" for vimrc edit or source
+nnoremap <Leader>ev :vsplit $MYVIMRC<cr>
+nnoremap <Leader>sv :source $MYVIMRC<cr>
+
+if empty(glob('~/.vim/autoload/plug.vim'))
+  silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
+    \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+endif
+
+call plug#begin('~/.vim/plugged')
+Plug 'junegunn/vim-plug'
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plug 'junegunn/fzf.vim'
+Plug 'lfv89/vim-interestingwords'
+Plug 'scrooloose/nerdcommenter'
+Plug 'mhinz/vim-startify'
+Plug 'Chiel92/vim-autoformat'
+Plug 'aperezdc/vim-template'
+Plug 'tpope/vim-surround'
+Plug 'mhinz/vim-signify'
+Plug 'majutsushi/tagbar'
+Plug 'scrooloose/nerdtree'
+Plug 'SirVer/ultisnips'
+Plug 'honza/vim-snippets'
+Plug 'mileszs/ack.vim'
+Plug 'jiangmiao/auto-pairs'
+Plug 'tpope/vim-fugitive'
+
+call plug#end()
+
+"for fzf key binds
+nnoremap <c-p> :FZF<CR>
+
+nnoremap <F8> :TagbarToggle<CR>
+
+" Trigger configuration. Do not use <tab> if you use https://github.com/Valloric/YouCompleteMe.
+let g:UltiSnipsExpandTrigger="<tab>"
+let g:UltiSnipsJumpForwardTrigger="<c-b>"
+let g:UltiSnipsJumpBackwardTrigger="<c-z>"
+
+" If you want :UltiSnipsEdit to split your window.
+let g:UltiSnipsEditSplit="vertical"
+
+" ack or ag search
+if executable('ag')
+  let g:ackprg = 'ag --vimgrep'
+endif
+
+cnoreabbrev Ack Ack!
+nnoremap <Leader>a :Ack!<Space>
