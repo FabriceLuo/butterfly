@@ -1,3 +1,5 @@
+" common setting {{{
+let mapleader = ';'
 set nocompatible
 set ruler
 set shiftwidth=4
@@ -10,15 +12,23 @@ set hlsearch
 set noerrorbells
 set showmatch
 set smartindent
-
+set number
 set encoding=utf-8
+" }}}
 
-let mapleader = ';'
-
-" for vimrc edit or source
+" for vimrc edit or source {{{
 nnoremap <Leader>ev :vsplit $MYVIMRC<cr>
 nnoremap <Leader>sv :source $MYVIMRC<cr>
+" }}}
 
+" vim script code fold {{{
+augroup filetype_vim
+	autocmd!
+	autocmd FileType vim setlocal foldmethod=marker
+augroup END
+" }}}
+
+" vim plugin list {{{
 if empty(glob('~/.vim/autoload/plug.vim'))
   silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
     \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
@@ -45,12 +55,17 @@ Plug 'jiangmiao/auto-pairs'
 Plug 'tpope/vim-fugitive'
 
 call plug#end()
+" }}}
 
-"for fzf key binds
+" fzf setting {{{
 nnoremap <c-p> :FZF<CR>
+" }}}
 
+" tagbar setting {{{
 nnoremap <F8> :TagbarToggle<CR>
+" }}}
 
+" UltiSnips setting {{{
 " Trigger configuration. Do not use <tab> if you use https://github.com/Valloric/YouCompleteMe.
 let g:UltiSnipsExpandTrigger="<tab>"
 let g:UltiSnipsJumpForwardTrigger="<c-b>"
@@ -58,11 +73,14 @@ let g:UltiSnipsJumpBackwardTrigger="<c-z>"
 
 " If you want :UltiSnipsEdit to split your window.
 let g:UltiSnipsEditSplit="vertical"
+" }}}
 
-" ack or ag search
+" ack setting {{{
 if executable('ag')
   let g:ackprg = 'ag --vimgrep'
 endif
 
 cnoreabbrev Ack Ack!
 nnoremap <Leader>a :Ack!<Space>
+" }}}
+
