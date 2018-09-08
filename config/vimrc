@@ -36,23 +36,71 @@ if empty(glob('~/.vim/autoload/plug.vim'))
 endif
 
 call plug#begin('~/.vim/plugged')
+" plugin manager
 Plug 'junegunn/vim-plug'
+
+" fuzzy finder
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
+
+" highlight the keywords
 Plug 'lfv89/vim-interestingwords'
+
+" comment/uncomment tool
 Plug 'scrooloose/nerdcommenter'
+
+" the vim start screen
 Plug 'mhinz/vim-startify'
+
+" format code
 Plug 'Chiel92/vim-autoformat'
+
+" file template when create new file
 Plug 'aperezdc/vim-template'
+
+" quoting/parentheses made simple
 Plug 'tpope/vim-surround'
+
+" show diff with style
 Plug 'mhinz/vim-signify'
+
+" show tags in a window
 Plug 'majutsushi/tagbar'
+
+" file system explorer
 Plug 'scrooloose/nerdtree'
+
+" the ultimate snippet solution for Vim
 Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
+
+" the code search 
 Plug 'mileszs/ack.vim'
+
+" insert or delete brackets, parens, quotes in pair 
 Plug 'jiangmiao/auto-pairs'
+
+" a git wrapper
 Plug 'tpope/vim-fugitive'
+
+" find and replace plugin
+Plug 'brooth/far.vim'
+
+" asynchronous linting/fixing
+Plug 'w0rp/ale'
+
+" sort python imports
+Plug 'fisadev/vim-isort'
+
+" a simple function navigator
+Plug 'tacahiroy/ctrlp-funky'
+
+" flake8 for vim
+Plug 'nvie/vim-flake8'
+
+" the code complete
+Plug 'Valloric/YouCompleteMe'
+
 
 call plug#end()
 " }}}
