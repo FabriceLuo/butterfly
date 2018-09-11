@@ -6,6 +6,8 @@ set shiftwidth=4
 set softtabstop=4
 set tabstop=4
 
+" set guifont=DejaVu\ Sans\ Mono\ for\ Powerline\ 30
+
 set ignorecase smartcase
 set incsearch
 set hlsearch
@@ -14,6 +16,11 @@ set showmatch
 set smartindent
 set number
 set encoding=utf-8
+set fileformat=unix
+set textwidth=79
+set splitbelow
+set splitright
+set autoindent
 " }}}
 
 " for vimrc edit or source {{{
@@ -48,6 +55,9 @@ Plug 'lfv89/vim-interestingwords'
 
 " comment/uncomment tool
 Plug 'scrooloose/nerdcommenter'
+
+" colorschemes
+Plug 'flazz/vim-colorschemes'
 
 " the vim start screen
 Plug 'mhinz/vim-startify'
@@ -94,13 +104,22 @@ Plug 'fisadev/vim-isort'
 
 " a simple function navigator
 Plug 'tacahiroy/ctrlp-funky'
+Plug 'ctrlpvim/ctrlp.vim'
 
 " flake8 for vim
-Plug 'nvie/vim-flake8'
+"Plug 'nvie/vim-flake8'
 
 " the code complete
 Plug 'Valloric/YouCompleteMe'
 
+" status line
+
+" for python
+Plug 'davidhalter/jedi-vim'
+Plug 'vim-scripts/indentpython.vim'
+
+" incremental search
+Plug 'haya14busa/incsearch.vim'
 
 call plug#end()
 " }}}
@@ -115,7 +134,7 @@ nnoremap <F8> :TagbarToggle<CR>
 
 " UltiSnips setting {{{
 " Trigger configuration. Do not use <tab> if you use https://github.com/Valloric/YouCompleteMe.
-let g:UltiSnipsExpandTrigger="<tab>"
+let g:UltiSnipsExpandTrigger="<c-l>"
 let g:UltiSnipsJumpForwardTrigger="<c-b>"
 let g:UltiSnipsJumpBackwardTrigger="<c-z>"
 
@@ -132,3 +151,69 @@ cnoreabbrev Ack Ack!
 nnoremap <Leader>a :Ack!<Space>
 " }}}
 
+" auto format code
+noremap <F3> :Autoformat<CR>
+" format when write to file
+" autocmd BufWrite * :Autoformat
+
+"NERDTree window
+nnoremap <F9> :NERDTreeToggle<CR>
+
+" isort setting
+let g:vim_isort_map = '<C-i>'
+let g:vim_isort_python_version = 'python2'
+
+" ctrlp_funky setting
+nnoremap <Leader>fu :CtrlPFunky<Cr>
+nnoremap <Leader>fU :execute 'CtrlPFunky ' . expand('<cword>')<Cr>
+
+" ctrlp setting
+" not use ctrlp for file find
+let g:ctrlp_map = ''
+
+" airline setting
+let g:airline_powerline_fonts = 1
+
+" enable folding
+set foldmethod=indent
+set foldlevel=99
+
+nnoremap <space> za
+
+
+" ignore files in NERDTree
+let NERDTreeIgnore=['\.pyc$', '\~$'] 
+
+" for ycm
+nmap gd :YcmCompleter GoToDeclaration<CR>
+nmap gf :YcmCompleter GoToDefinition<CR>
+nmap ga :YcmCompleter GoToDefinitionElseDeclaration<CR>
+
+" for vim-signify config
+let g:signify_disable_by_default = 0
+
+
+" default colorscheme
+colorscheme molokai
+
+" incsearch setting
+"map /  <Plug>(incsearch-forward)
+"map ?  <Plug>(incsearch-backword)
+map g/ <Plug>(incsearch-stay)
+nnoremap <Esc><Esc> :<C-u>nohlsearch<CR>
+
+" :h g:incsearch#auto_nohlsearch
+set hlsearch
+let g:incsearch#auto_nohlsearch = 1
+map n  <Plug>(incsearch-nohl-n)
+map N  <Plug>(incsearch-nohl-N)
+map *  <Plug>(incsearch-nohl-*)
+map #  <Plug>(incsearch-nohl-#)
+map g* <Plug>(incsearch-nohl-g*)
+map g# <Plug>(incsearch-nohl-g#)
+
+" for powerline
+set rtp+=/usr/local/lib/python2.7/dist-packages/powerline/bindings/vim
+set laststatus=2
+set t_Co=256
+let g:Powerline_symbols='fancy'
