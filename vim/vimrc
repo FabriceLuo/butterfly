@@ -107,10 +107,12 @@ Plug 'tacahiroy/ctrlp-funky'
 Plug 'ctrlpvim/ctrlp.vim'
 
 " flake8 for vim
-"Plug 'nvie/vim-flake8'
+Plug 'nvie/vim-flake8'
 
 " the code complete
 Plug 'Valloric/YouCompleteMe'
+" ycm config generator
+Plug 'rdnetto/YCM-Generator'
 
 " status line
 
@@ -120,6 +122,12 @@ Plug 'vim-scripts/indentpython.vim'
 
 " incremental search
 Plug 'haya14busa/incsearch.vim'
+
+" multiple cursors
+Plug 'terryma/vim-multiple-cursors'
+
+" for dirdiff
+Plug 'will133/vim-dirdiff'
 
 call plug#end()
 " }}}
