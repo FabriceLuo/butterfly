@@ -1,2 +1,3 @@
 # butterfly
-vim config for person
+
+Personal development environment configuration
