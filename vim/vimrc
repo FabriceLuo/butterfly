@@ -93,6 +93,9 @@ Plug 'jiangmiao/auto-pairs'
 " a git wrapper
 Plug 'tpope/vim-fugitive'
 
+" a git commit viewer
+Plug 'junegunn/gv.vim'
+
 " find and replace plugin
 Plug 'brooth/far.vim'
 
@@ -129,6 +132,23 @@ Plug 'terryma/vim-multiple-cursors'
 " for dirdiff
 Plug 'will133/vim-dirdiff'
 
+" for markdown
+Plug 'godlygeek/tabular'
+Plug 'plasticboy/vim-markdown'
+
+" for string replace in multiple files
+Plug 'brooth/far.vim'
+
+" for debug in vim
+"Plug 'vim-vdebug/vdebug'
+
+" for align
+Plug 'junegunn/vim-easy-align'
+
+" for ctags
+Plug 'ludovicchabant/vim-gutentags'
+
+
 call plug#end()
 " }}}
 
@@ -143,11 +163,13 @@ nnoremap <F8> :TagbarToggle<CR>
 " UltiSnips setting {{{
 " Trigger configuration. Do not use <tab> if you use https://github.com/Valloric/YouCompleteMe.
 let g:UltiSnipsExpandTrigger="<c-l>"
-let g:UltiSnipsJumpForwardTrigger="<c-b>"
-let g:UltiSnipsJumpBackwardTrigger="<c-z>"
+let g:UltiSnipsJumpForwardTrigger="<c-j>"
+let g:UltiSnipsJumpBackwardTrigger="<c-k>"
 
 " If you want :UltiSnipsEdit to split your window.
 let g:UltiSnipsEditSplit="vertical"
+
+let g:ultisnips_python_style="google"
 " }}}
 
 " ack setting {{{
@@ -169,7 +191,7 @@ nnoremap <F9> :NERDTreeToggle<CR>
 
 " isort setting
 let g:vim_isort_map = '<C-i>'
-let g:vim_isort_python_version = 'python2'
+let g:vim_isort_python_version = 'python3'
 
 " ctrlp_funky setting
 nnoremap <Leader>fu :CtrlPFunky<Cr>
@@ -196,6 +218,19 @@ let NERDTreeIgnore=['\.pyc$', '\~$']
 nmap gd :YcmCompleter GoToDeclaration<CR>
 nmap gf :YcmCompleter GoToDefinition<CR>
 nmap ga :YcmCompleter GoToDefinitionElseDeclaration<CR>
+
+let g:ycm_python_interpreter_path = '/usr/bin/python'
+let g:ycm_python_sys_path = ['/home/mike/work/SQLAlchemy-1.2.12/build/lib.linux-x86_64-2.7']
+let g:ycm_extra_conf_vim_data = [
+	\	'g:ycm_python_interpreter_path',
+	\	'g:ycm_python_sys_path'
+	\]
+
+" use default ycm config
+let g:ycm_global_ycm_extra_conf = '~/.global_extra_conf.py'
+
+" do not confirm when loading config file
+let g:ycm_confirm_extra_conf = 0
 
 " for vim-signify config
 let g:signify_disable_by_default = 0
@@ -225,3 +260,19 @@ set rtp+=/usr/local/lib/python2.7/dist-packages/powerline/bindings/vim
 set laststatus=2
 set t_Co=256
 let g:Powerline_symbols='fancy'
+
+" for ctags
+set tags=./.tags;,.tags
+
+let g:gutentags_project_root = ['.root', '.svn', '.git', '.hg', '.project']
+let g:gutentags_ctags_tagfile = '.tags'
+let s:vim_tags = expand('~/.cache/tags')
+let g:gutentags_cache_dir = s:vim_tags
+
+let g:gutentags_ctags_extra_args = ['--fields=+niazS', '--extra=+q']
+let g:gutentags_ctags_extra_args += ['--c++-kinds=+px']
+let g:gutentags_ctags_extra_args += ['--c-kinds=+px']
+
+if !isdirectory(s:vim_tags)
+	silent! call mkdir(s:vim_tags, 'p')
+endif

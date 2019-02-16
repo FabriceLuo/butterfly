@@ -10,3 +10,5 @@ tmux
 svn
 git
 
++ jq
+Command-line JSON processor
