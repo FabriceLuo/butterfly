@@ -115,7 +115,7 @@ Plug 'nvie/vim-flake8'
 " the code complete
 Plug 'Valloric/YouCompleteMe'
 " ycm config generator
-Plug 'rdnetto/YCM-Generator'
+Plug 'rdnetto/YCM-Generator', { 'branch': 'stable'}
 
 " status line
 
@@ -191,7 +191,7 @@ nnoremap <F9> :NERDTreeToggle<CR>
 
 " isort setting
 let g:vim_isort_map = '<C-i>'
-let g:vim_isort_python_version = 'python3'
+let g:vim_isort_python_version = 'python2'
 
 " ctrlp_funky setting
 nnoremap <Leader>fu :CtrlPFunky<Cr>
