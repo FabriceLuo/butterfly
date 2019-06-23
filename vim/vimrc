@@ -9,7 +9,7 @@ set tabstop=4
 
 " set font on windows and linux
 if has("win32")
-	set guifont=DejaVu\ Sans\ Mono:h11
+	set guifont=DejaVu\ Sans\ Mono:h10
 elseif has("linux")
 	set guifont=DejaVu\ Sans\ Mono\ for\ Powerline\ 30
 endif
@@ -119,9 +119,6 @@ Plug 'brooth/far.vim'
 " asynchronous linting/fixing
 Plug 'w0rp/ale'
 
-" sort python imports
-" Plug 'fisadev/vim-isort'
-
 " a simple function navigator
 Plug 'tacahiroy/ctrlp-funky'
 Plug 'ctrlpvim/ctrlp.vim'
@@ -134,11 +131,31 @@ Plug 'Valloric/YouCompleteMe'
 " ycm config generator
 Plug 'rdnetto/YCM-Generator', { 'branch': 'stable'}
 
+" indent levels
+Plug 'Yggdroot/indentLine'
+
 " status line
 
-" for python
-Plug 'davidhalter/jedi-vim'
-Plug 'vim-scripts/indentpython.vim'
+"------------------------------------Python Plugins Start------------------------
+" code formatter:
+" google/yapf with vim-autoformat
+" syntax checking:
+" w0rp/ale
+" sort import:
+" autofix with w0rp/ale
+Plug 'fisadev/vim-isort'
+" auto completion:
+" jedi with Valloric/YouCompleteMe
+" quick run:
+" skywind3000/asyncrun.vim
+" indent levels:
+" Yggdroot/indentLine
+" enhance the default python syntax highlighting:
+Plug 'python-mode/python-mode', { 'for': 'python', 'branch': 'develop' }
+" Python text objects:
+Plug 'jeetsukumaran/vim-pythonsense'
+"------------------------------------Python Plugins end--------------------------
+
 
 " incremental search
 Plug 'haya14busa/incsearch.vim'
@@ -152,6 +169,8 @@ Plug 'will133/vim-dirdiff'
 " for markdown
 Plug 'godlygeek/tabular'
 Plug 'plasticboy/vim-markdown'
+" markdown live preview
+Plug 'suan/vim-instant-markdown', {'for': 'markdown'}
 
 " for string replace in multiple files
 Plug 'brooth/far.vim'
@@ -293,6 +312,42 @@ let g:gutentags_ctags_extra_args += ['--c-kinds=+px']
 if !isdirectory(s:vim_tags)
 	silent! call mkdir(s:vim_tags, 'p')
 endif
+
+"--------------------------------ale setting start--------------------------------
+let g:ale_lint_on_text_changed = 0
+let g:ale_lint_on_insert_leave = 0
+let g:ale_lint_on_enter = 0
+let g:ale_lint_on_save = 1
+let g:ale_lint_on_filetype_changed = 0
+" manually check |:ALELint|
+"--------------------------------ale setting end----------------------------------
+
+"------------------------------python-mode setting start--------------------------
+let g:pymode_python = 'python'
+let g:pymode_indent = 1
+let g:pymode_folding = 1
+let g:python_motion = 1
+let g:pymode_doc = 0
+let g:pymode_virtualenv = 0
+let g:pymode_run = 0
+let g:pymode_breakpoint = 0
+let g:pymode_lint = 0
+let g:pymode_rope = 0
+let g:pymode_rope_completion = 0
+let g:pymode_syntax = 1
+
+let g:pymode_syntax_all = 1
+"------------------------------python-mode setting end----------------------------
+
+" for vim instant markdown
+" filetype plugin on, seted by plug
+"Uncomment to override defaults:
+"let g:instant_markdown_slow = 1
+"let g:instant_markdown_autostart = 0
+"let g:instant_markdown_open_to_the_world = 1 
+"let g:instant_markdown_allow_unsafe_content = 1
+"let g:instant_markdown_allow_external_content = 0
+"let g:instant_markdown_mathjax = 1
 
 " Start on gui mode
 if has("gui_running")
