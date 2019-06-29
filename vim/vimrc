@@ -226,8 +226,8 @@ noremap <F3> :Autoformat<CR>
 nnoremap <F9> :NERDTreeToggle<CR>
 
 " isort setting
-"let g:vim_isort_map = '<C-i>'
-"let g:vim_isort_python_version = 'python2'
+let g:vim_isort_map = '<C-i>'
+let g:vim_isort_python_version = 'python2'
 
 " ctrlp_funky setting
 nnoremap <Leader>fu :CtrlPFunky<Cr>
@@ -236,9 +236,6 @@ nnoremap <Leader>fU :execute 'CtrlPFunky ' . expand('<cword>')<Cr>
 " ctrlp setting
 " not use ctrlp for file find
 let g:ctrlp_map = ''
-
-" airline setting
-"let g:airline_powerline_fonts = 1
 
 " enable folding
 set foldmethod=indent
@@ -292,10 +289,10 @@ map g* <Plug>(incsearch-nohl-g*)
 map g# <Plug>(incsearch-nohl-g#)
 
 " for powerline
-"set rtp+=/usr/local/lib/python2.7/dist-packages/powerline/bindings/vim
-"set laststatus=2
-"set t_Co=256
-"let g:Powerline_symbols='fancy'
+set rtp+=/usr/local/lib/python2.7/dist-packages/powerline/bindings/vim
+set laststatus=2
+set t_Co=256
+let g:Powerline_symbols='fancy'
 
 " for ctags
 set tags=./.tags;,.tags
@@ -339,7 +336,7 @@ let g:pymode_syntax = 1
 let g:pymode_syntax_all = 1
 "------------------------------python-mode setting end----------------------------
 
-" for vim instant markdown
+"------------------------------instant-markdown setting start---------------------
 " filetype plugin on, seted by plug
 "Uncomment to override defaults:
 "let g:instant_markdown_slow = 1
@@ -348,6 +345,7 @@ let g:pymode_syntax_all = 1
 "let g:instant_markdown_allow_unsafe_content = 1
 "let g:instant_markdown_allow_external_content = 0
 "let g:instant_markdown_mathjax = 1
+"------------------------------instant-markdown setting end-----------------------
 
 " Start on gui mode
 if has("gui_running")
