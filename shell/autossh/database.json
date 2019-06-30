@@ -1,0 +1,15 @@
+{
+	"PartPasswds": [
+		{
+			"ref_count": 32,
+			"passwd": "xxxxx"
+		}
+	],
+	"NodeRecords": [
+		{
+			"username": "xxxx",
+			"password": "xxxxxxxxx",
+			"ip": "xxx.xxx.xxx.xxx"
+		}
+	]
+}

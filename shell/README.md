@@ -1,7 +1,6 @@
 # Shell Utils
 ## FZF
 ## Git
-## Ag
 ## Curl
 ## Tmux
 ## Powerline
@@ -16,3 +15,6 @@
 ## Ag(Silversearcher-Ag)
 ## Ctags(Universal-ctags)
 ## Pre-commit
+## Rsync
+## Samba
+## SSH

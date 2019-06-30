@@ -9,3 +9,5 @@
 ## BeyoundCompare
 ## WPS
 ## YouDao-Dict
+## Insomnia
+## Keepassx
