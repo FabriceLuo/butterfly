@@ -2,9 +2,11 @@
 let mapleader = ';'
 set nocompatible
 set ruler
+
 set shiftwidth=4
 set softtabstop=4
 set tabstop=4
+set expandtab
 
 
 " set font on windows and linux
@@ -21,7 +23,10 @@ set noerrorbells
 set showmatch
 set smartindent
 set number
+
 set encoding=utf-8
+set fileencodings=utf-8,gb2312
+set termencoding=utf-8
 set fileformat=unix
 set textwidth=79
 set splitbelow
@@ -356,3 +361,12 @@ if has("gui_running")
 	" remove the toolbar
 	set guioptions -=T
 endif
+
+" for startify
+let g:startify_change_to_dir = 0
+let g:startify_change_to_vcs_root = 1
+
+" for template
+let g:email = "luominghao@live.com"
+let g:username = "luominghao"
+let g:license = "MIT"
