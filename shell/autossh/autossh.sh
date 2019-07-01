@@ -1,4 +1,4 @@
-#! /bin/sh
+#! /bin/bash
 #
 # autossh.sh
 # Copyright (C) 2019 mike <mike@luominghao>
@@ -24,6 +24,11 @@ HOST_RECORD_CONFIG_TEMP="${HOST_RECORD_CONFIG}.temp"
 
 PASSWORD_SUFFIX="sangfornetwork"
 PASSWORD_APPEND_SUFFIX=1
+
+USER_PART_PASSWORD_VALID=1
+USER_PART_PASSWORD_INDEX=0
+USER_PART_PASSWORD_COUNT=0
+declare -a USER_PART_PASSWORD_ARRAY
 
 help() {
 	echo "${0} parameters error:"
@@ -52,6 +57,19 @@ init_db_config() {
 }
 EOF
 	return $?
+}
+
+load_db_config() {
+	local part_lines=$(jq ".PartPasswds[].password" "$HOST_RECORD_CONFIG" | sed 's/"//g')
+	if [[ $? -ne 0 ]]; then
+		echo "Load db config failed"
+		return 1
+	fi
+
+	USER_PART_PASSWORD_ARRAY=($part_lines)
+	USER_PART_PASSWORD_INDEX=0
+	USER_PART_PASSWORD_COUNT=${#USER_PART_PASSWORD_ARRAY[@]}
+	return 0
 }
 
 get_password_from_db() {
@@ -125,6 +143,26 @@ get_password_from_user() {
 	echo "Please input password for host(${USER_HOST}) of user(${USER_NAME})"
 	echo -n "Password:"
 	read -se USER_PASSWORD
+    echo ""
+	return 0
+}
+
+get_password_from_part() {
+	if [[ $USER_PART_PASSWORD_INDEX -ge $USER_PART_PASSWORD_COUNT ]]; then
+		USER_PART_PASSWORD_INDEX=0
+		USER_PART_PASSWORD_COUNT=0
+		USER_PART_PASSWORD_VALID=0
+
+		return 1
+	fi
+
+	local part_password="${USER_PART_PASSWORD_ARRAY[$USER_PART_PASSWORD_INDEX]}"
+    USER_PART_PASSWORD_INDEX=$((USER_PART_PASSWORD_INDEX + 1))
+	if [[ $PASSWORD_APPEND_SUFFIX -eq 1 ]]; then
+		USER_PASSWORD="${part_password}${PASSWORD_SUFFIX}"
+	else
+		USER_PASSWORD="${part_password}"
+	fi
 	return 0
 }
 
@@ -134,6 +172,10 @@ get_password() {
 	if [[ $? -eq 0 ]]; then
 		PASSWORD_PROVIDER=$PASSWORD_PROVIDER_DB
 		return 0
+	fi
+
+	if [[ -n $USER_PART_PASSWORD_VALID ]]; then
+		get_password_from_part && return 0
 	fi
 
 	# 从用户输入
@@ -221,6 +263,7 @@ main() {
 		USER_PASSWORD="${USER_PASSWORD}${PASSWORD_SUFFIX}"
 	fi
 	init_db_config || exit 1
+	load_db_config || exit 1
 	auto_login
 	return $?
 }

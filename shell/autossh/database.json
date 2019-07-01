@@ -2,7 +2,11 @@
 	"PartPasswds": [
 		{
 			"ref_count": 32,
-			"passwd": "xxxxx"
+			"password": "admin"
+		},
+		{
+			"ref_count": 32,
+			"password": "admin123"
 		}
 	],
 	"NodeRecords": [
