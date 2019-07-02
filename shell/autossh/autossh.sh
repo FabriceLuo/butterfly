@@ -28,6 +28,10 @@ PASSWORD_APPEND_SUFFIX=1
 USER_PART_PASSWORD_VALID=1
 USER_PART_PASSWORD_INDEX=0
 USER_PART_PASSWORD_COUNT=0
+
+LOGIN_TARGET=""
+LOGIN_TARGET_REGEX="(\w+@)?[0-2][0-9]{0,2}(\.[0-2][0-9]{0,2}){3}" 
+
 declare -a USER_PART_PASSWORD_ARRAY
 
 help() {
@@ -200,6 +204,58 @@ login_with_public_key() {
 	sshpass ssh $USER_NAME@$USER_HOST
 }
 
+get_login_target_from_db() {
+    local db_targets=$(jq '.NodeRecords | .[] | .username + "@" + .ip' "$HOST_RECORD_CONFIG")
+
+    local targets=$(echo "$db_targets" | sed 's/"//g' | fzf --print-query)
+    local errcode=$?
+    if [[ $errcode -eq 130 ]]; then
+        exit 1
+    fi
+
+    if [[ $errcode -eq 0 ]]; then
+        targets=$(echo "$targets" | sed -n '2p')
+    fi
+
+    LOGIN_TARGET=$targets
+    return 0
+}
+
+init_login_target() {
+    # 解析target是否正确，不正确需要重新输入 
+    test -z "$LOGIN_TARGET" && return 1
+
+    [[ ! $LOGIN_TARGET =~ $LOGIN_TARGET_REGEX ]] && return 1
+    
+    # 如果不包含@，则为IP
+    echo "$LOGIN_TARGET" | grep -q "@"
+    if [[ $? -ne 0 ]]; then
+        USER_HOST=$LOGIN_TARGET
+        return 0
+    fi
+
+    USER_HOST="${LOGIN_TARGET#*@}"
+    USER_NAME="${LOGIN_TARGET%%@*}"
+    return 0
+}
+
+get_login_target() {
+    # 先从数据库中获取，获取失败或初始化失败时，重新获取
+    while true; do
+        get_login_target_from_db
+        if [[ $? -ne 0 ]]; then
+            continue
+        fi
+
+        init_login_target
+        if [[ $? -eq 0 ]]; then
+            return 0
+        fi
+    done
+
+    return 1
+}
+
 auto_login() {
 	# 不断获取密码，重试登录
 	while true; do
@@ -263,6 +319,7 @@ main() {
 		USER_PASSWORD="${USER_PASSWORD}${PASSWORD_SUFFIX}"
 	fi
 	init_db_config || exit 1
+    get_login_target || exit 1
 	load_db_config || exit 1
 	auto_login
 	return $?
