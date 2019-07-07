@@ -30,18 +30,28 @@ USER_PART_PASSWORD_INDEX=0
 USER_PART_PASSWORD_COUNT=0
 
 LOGIN_TARGET=""
-LOGIN_TARGET_REGEX="(\w+@)?[0-2][0-9]{0,2}(\.[0-2][0-9]{0,2}){3}" 
+LOGIN_TARGET_REGEX="(\w+@)?[0-2]?[0-9]{0,2}(\.[0-2]?[0-9]{0,2}){3}" 
+LOGIN_VERBOSE=0
 
 declare -a USER_PART_PASSWORD_ARRAY
 
 help() {
-	echo "${0} parameters error:"
-	exit 1
+	echo "${0} usage:"
+    echo "${0} [-p password] [-u user] [-i ip] [-c config_file] [-d] [-v] to login"
+    echo "${0} [-h] to show this usage"
+    echo "          -p password, login password"
+    echo "          -u user, login user name"
+    echo "          -i ip, login host ip"
+    echo "          -c config_file, config file path"
+    echo "          -d, disable append suffix, suffix:${PASSWORD_SUFFIX}"
+    echo "          -v, verbose information"
+	exit 0
 }
 
 init_db_config() {
+	local config_dir
 	test -e $HOST_RECORD_CONFIG && return 0
-	local config_dir=$(dirname $HOST_RECORD_CONFIG)
+	config_dir=$(dirname $HOST_RECORD_CONFIG)
 	if [[ $? -ne 0 ]]; then
 		echo "Get host database config failed"
 		return 1
@@ -64,7 +74,8 @@ EOF
 }
 
 load_db_config() {
-	local part_lines=$(jq ".PartPasswds[].password" "$HOST_RECORD_CONFIG" | sed 's/"//g')
+	local part_lines
+	part_lines=$(jq ".PartPasswds[].password" "$HOST_RECORD_CONFIG" | sed 's/"//g')
 	if [[ $? -ne 0 ]]; then
 		echo "Load db config failed"
 		return 1
@@ -84,7 +95,8 @@ get_password_from_db() {
 
 	# 先查找主机IP，再对比用户名
 	# 获取记录数量
-	local record_count=$(jq '.NodeRecords|length' "$HOST_RECORD_CONFIG")
+	local record_count
+	record_count=$(jq '.NodeRecords|length' "$HOST_RECORD_CONFIG")
 	if [[ $? -ne 0 ]]; then
 		return 1
 	fi
@@ -196,6 +208,7 @@ get_password() {
 
 
 login_with_password() {
+    [[ $LOGIN_VERBOSE -ne 0 ]] && echo "user(${USER_NAME}) login to (${USER_HOST}) with password:${USER_PASSWORD}"
 	sshpass -p "$USER_PASSWORD" ssh $USER_NAME@$USER_HOST
 	return $?
 }
@@ -205,9 +218,10 @@ login_with_public_key() {
 }
 
 get_login_target_from_db() {
+    local targets
     local db_targets=$(jq '.NodeRecords | .[] | .username + "@" + .ip' "$HOST_RECORD_CONFIG")
 
-    local targets=$(echo "$db_targets" | sed 's/"//g' | fzf --print-query)
+    targets=$(echo "$db_targets" | sed 's/"//g' | fzf --print-query)
     local errcode=$?
     if [[ $errcode -eq 130 ]]; then
         exit 1
@@ -286,7 +300,7 @@ auto_login() {
 }
 
 main() {
-	local optstring=":p:u:h:c:d"
+	local optstring=":p:u:i:c:dvh"
 	OPTIND=0
 	while getopts $optstring opt $@; do
 		case $opt in
@@ -299,7 +313,10 @@ main() {
 			'u')
 				USER_NAME="$OPTARG"
 				;;
-			'h')
+            'v')
+                LOGIN_VERBOSE=1
+                ;;
+			'i')
 				USER_HOST="$OPTARG"
 				;;
 			'c')
@@ -308,7 +325,7 @@ main() {
 				;;
 			':')
 				;;
-			'?')
+			'?' | 'h')
 				help
 				;;
 		esac
