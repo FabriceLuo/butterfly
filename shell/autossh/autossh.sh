@@ -209,12 +209,8 @@ get_password() {
 
 login_with_password() {
     [[ $LOGIN_VERBOSE -ne 0 ]] && echo "user(${USER_NAME}) login to (${USER_HOST}) with password:${USER_PASSWORD}"
-	sshpass -p "$USER_PASSWORD" ssh $USER_NAME@$USER_HOST
+	sshpass -p "$USER_PASSWORD" ssh -o StrictHostKeyChecking=no $USER_NAME@$USER_HOST
 	return $?
-}
-
-login_with_public_key() {
-	sshpass ssh $USER_NAME@$USER_HOST
 }
 
 get_login_target_from_db() {
