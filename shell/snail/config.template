@@ -1,0 +1,22 @@
+{
+    "environments": [
+    {
+        "name": "name1",
+        "type": "update",
+        "value": "value1"
+    },
+    {
+        "name": "test2",
+        "type": "update",
+        "value": "value2"
+    }
+    ],
+    "utils": [
+    {
+        "name": "",
+        "src": "",
+        "des": "",
+        "permissions": ""
+    }
+    ]
+}
