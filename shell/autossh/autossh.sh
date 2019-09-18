@@ -28,9 +28,10 @@ USER_PART_PASSWORD_VALID=1
 USER_PART_PASSWORD_INDEX=0
 USER_PART_PASSWORD_COUNT=0
 
-SSH_CMD=
-SSHRC_CMD="sshrc"
-OPENSSH_CMD="ssh"
+SSH_AGENT=
+
+SSH_AGENT_OPENSSH="ssh"
+SSH_AGENT_SSHRC="sshrc"
 
 LOGIN_TARGET=""
 LOGIN_TARGET_REGEX="(\w+@)?[0-2]?[0-9]{0,2}(\.[0-2]?[0-9]{0,2}){3}" 
@@ -199,10 +200,29 @@ get_password() {
     return 1
 }
 
+login_with_openssh() {
+    sshpass -e ssh -o StrictHostKeyChecking=no $USER_NAME@$USER_HOST
+    return $?
+}
+
+login_with_sshrc() {
+    sshrc $USER_NAME@$USER_HOST
+    return $?
+}
 
 login_with_password() {
+    # 导出环境变量，避免泄露和供sshrc使用
+    export SSHPASS=$USER_PASSWORD
+
     [[ $LOGIN_VERBOSE -ne 0 ]] && echo "user(${USER_NAME}) login to (${USER_HOST}) with password:${USER_PASSWORD}"
-    sshpass -p "$USER_PASSWORD" ssh -o StrictHostKeyChecking=no $USER_NAME@$USER_HOST
+    if [[ $SSH_AGENT == $SSH_AGENT_OPENSSH ]]; then
+        login_with_openssh
+    elif [[ $SSH_AGENT == $SSH_AGENT_SSHRC ]]; then
+        login_with_sshrc
+    else
+        echo "login agent not support:$SSH_AGENT"
+        exit 1
+    fi
     return $?
 }
 
@@ -291,7 +311,7 @@ auto_login() {
 main() {
     local optstring=":p:u:i:c:dvhr"
     OPTIND=0
-    SSH_CMD=$OPENSSH_CMD
+    SSH_AGENT=$SSH_AGENT_OPENSSH
     while getopts $optstring opt $@; do
         case $opt in
             'd')
@@ -314,7 +334,7 @@ main() {
                 HOST_RECORD_CONFIG_TEMP="${HOST_RECORD_CONFIG}.temp"
                 ;;
             'r')
-                SSH_CMD=$SSHRC_CMD
+                SSH_AGENT=$SSH_AGENT_SSHRC
                 ;;
             ':')
                 ;;
