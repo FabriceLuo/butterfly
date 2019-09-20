@@ -191,6 +191,9 @@ Plug 'junegunn/vim-easy-align'
 " for ctags
 Plug 'ludovicchabant/vim-gutentags'
 
+" for plantuml
+Plug 'aklt/plantuml-syntax'
+
 
 call plug#end()
 " }}}

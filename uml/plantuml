@@ -1,0 +1,9 @@
+#!/bin/bash
+
+plantuml=$(which plantuml.jar)
+if [[ $? -ne 0 ]]; then
+    echo "plantuml.jar not found"
+    exit 1
+fi
+
+java -jar "$plantuml" -tsvg $@
