@@ -1,8 +1,12 @@
-# 配置说明
-## 配置vim subversion commit模板
-
-## 配置review board tools
-
-## 配置代码格式化工具
-
-## 配置代码检查工具
++ vim, for .global_extra_conf.py solarizedlight
++ panda
++ gitconfig
++ sshrc
++ tmux, for solarizedlight
++ autossh
++ git
++ rsync
++ samba
++ apache, for markdown, code, plantuml
++ plantuml
++ ctags
