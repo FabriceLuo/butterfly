@@ -158,7 +158,6 @@ Plug 'fisadev/vim-isort'
 " Python indent
 Plug "Vimjas/vim-python-pep8-indent"
 " enhance the default python syntax highlighting:
-Plug 'python-mode/python-mode', { 'for': 'python', 'branch': 'develop' }
 " Python text objects:
 Plug 'jeetsukumaran/vim-pythonsense'
 "------------------------------------Python Plugins end--------------------------
@@ -278,9 +277,11 @@ let g:ycm_confirm_extra_conf = 0
 " for vim-signify config
 let g:signify_disable_by_default = 0
 
+set t_Co=256
 
 " default colorscheme
-colorscheme molokai
+" colorscheme molokai
+colorscheme solarized8_light_high
 
 " incsearch setting
 "map /  <Plug>(incsearch-forward)
@@ -384,3 +385,5 @@ let g:indentLine_enabled = 0
 xmap ga <Plug>(EasyAlign)
 " Start interactive EasyAlign for a motion/text object (e.g. gaip)
 nmap ga <Plug>(EasyAlign)
+
+let g:DirDiffExcludes = "*.git,*.pyc"
