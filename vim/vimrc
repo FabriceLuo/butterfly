@@ -106,10 +106,10 @@ Plug 'scrooloose/nerdtree'
 Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
 
-" the code search 
+" the code search
 Plug 'mileszs/ack.vim'
 
-" insert or delete brackets, parens, quotes in pair 
+" insert or delete brackets, parens, quotes in pair
 Plug 'jiangmiao/auto-pairs'
 
 " a git wrapper
@@ -156,7 +156,7 @@ Plug 'fisadev/vim-isort'
 " indent levels:
 " Yggdroot/indentLine
 " Python indent
-Plug "Vimjas/vim-python-pep8-indent"
+Plug 'Vimjas/vim-python-pep8-indent'
 " enhance the default python syntax highlighting:
 " Python text objects:
 Plug 'jeetsukumaran/vim-pythonsense'
@@ -236,7 +236,7 @@ nnoremap <F9> :NERDTreeToggle<CR>
 
 " isort setting
 let g:vim_isort_map = '<C-i>'
-let g:vim_isort_python_version = 'python2'
+let g:vim_isort_python_version = 'python3'
 
 " ctrlp_funky setting
 nnoremap <Leader>fu :CtrlPFunky<Cr>
@@ -254,7 +254,7 @@ nnoremap <space> za
 
 
 " ignore files in NERDTree
-let NERDTreeIgnore=['\.pyc$', '\~$'] 
+let NERDTreeIgnore=['\.pyc$', '\~$']
 
 " for ycm
 nmap gd :YcmCompleter GoToDeclaration<CR>
@@ -352,7 +352,7 @@ let g:pymode_syntax_all = 1
 "Uncomment to override defaults:
 "let g:instant_markdown_slow = 1
 "let g:instant_markdown_autostart = 0
-"let g:instant_markdown_open_to_the_world = 1 
+"let g:instant_markdown_open_to_the_world = 1
 "let g:instant_markdown_allow_unsafe_content = 1
 "let g:instant_markdown_allow_external_content = 0
 "let g:instant_markdown_mathjax = 1
