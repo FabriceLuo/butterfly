@@ -1,0 +1,9 @@
+{
+    "group": "mike",
+    "registry-mirrors": [
+        "https://docker.mirrors.ustc.edu.cn/"
+    ],
+    "hosts": [
+        "unix:///var/run/docker.sock"
+    ]
+}
