@@ -1,0 +1,6 @@
+# ignore git metadata
+.git/
+
+# ignore Dockerfile and dockerignore for image
+Dockerfile
+.dockerignore
