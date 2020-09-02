@@ -27,5 +27,8 @@ RUN ${pkg_install} apt-utils
 RUN ${pkg_install} dialog locales
 RUN localedef -i en_US -f UTF-8 en_US.UTF-8
 
+RUN useradd -m -U mike
+
 # 安装vim
-RUN ${pkg_install} vim
+RUN ${pkg_install} build-essential
+RUN ${pkg_install} git

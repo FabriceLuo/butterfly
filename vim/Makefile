@@ -38,11 +38,12 @@ clean:
 	rm -f $(vim_tar_name)
 
 
-config: config_backup
+# config: config_backup
+config:
 	install -D -m 0600 vimrc ~/.vimrc
 
 config_backup:
-	[[ -f ~/.vimrc ]] && mv -f ~/.vimrc ~/.vimrc.back
+	test -f ~/.vimrc && mv -f ~/.vimrc ~/.vimrc.back
 
 vim_all: vim_make vim_install
 
