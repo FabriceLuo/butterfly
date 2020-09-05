@@ -6,7 +6,7 @@
 DAEMON_CONFIG_PATH=/etc/docker/daemon.json
 
 install:
-	install -b -D -g docker -o root -m 0660 -S bak daemon.json $(DAEMON_CONFIG_PATH)
+	install -b -D -g docker -o root -m 0660 daemon.json $(DAEMON_CONFIG_PATH)
 
 # vim:ft=make
 #

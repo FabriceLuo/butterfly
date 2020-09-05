@@ -12,3 +12,9 @@
 [core]
     # 不引用路径，使得中文文件名称可以正常显示
     quotepath = false
+
+[http]
+    proxy = socks5://192.168.2.1:1080
+
+[https]
+    proxy = socks5://192.168.2.1:1080
