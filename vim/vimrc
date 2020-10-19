@@ -140,6 +140,9 @@ Plug 'rdnetto/YCM-Generator', { 'branch': 'stable'}
 Plug 'Yggdroot/indentLine'
 
 " status line
+" ----------------------------------for golang---------------------------------
+Plug 'fatih/vim-go', {'do': ':GoUpdateBinaries'}
+" ----------------------------------end golang---------------------------------
 
 "------------------------------------Python Plugins Start------------------------
 " code formatter:
@@ -280,8 +283,8 @@ let g:signify_disable_by_default = 0
 set t_Co=256
 
 " default colorscheme
-" colorscheme molokai
-colorscheme solarized8_light_high
+colorscheme molokai
+" colorscheme solarized8_light_high
 
 " incsearch setting
 "map /  <Plug>(incsearch-forward)

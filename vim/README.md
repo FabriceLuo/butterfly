@@ -71,6 +71,8 @@
 
 ### the code complete
 + Valloric/YouCompleteMe
+    Python, Go
+
 + rdnetto/YCM-Generator
 
 ### status line
@@ -127,3 +129,6 @@
 #### Live preview
 + suan/vim-instant-markdown
 
+### Go
+#### Syntax highlighting, matching rules and mappings 
++ fatih/vim-go
