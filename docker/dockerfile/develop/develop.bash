@@ -11,6 +11,7 @@ CONTAINER_NAME="debian10-develop"
 WORK_DIR=/home/work
 LOCAL_VOLUME=/home/mike/code
 REMOTE_VOLUME=/home/work
+USER=mike
 
 function start()
 {
@@ -34,7 +35,7 @@ function delete()
 function create()
 {
     echo "begin to create container:${CONTAINER_NAME}"
-    docker create --workdir "${WORK_DIR}" -v "${LOCAL_VOLUME}":"${REMOTE_VOLUME}" --hostname debian10 -i -t --name "${CONTAINER_NAME}" "${IMAGE_NAME}"
+    docker create -u "${USER}" --workdir "${WORK_DIR}" -v "${LOCAL_VOLUME}":"${REMOTE_VOLUME}" --hostname debian10 -i -t --name "${CONTAINER_NAME}" "${IMAGE_NAME}"
     echo "create container success"
 }
 
