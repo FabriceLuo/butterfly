@@ -12,7 +12,7 @@ vim:
 	@echo "build vim source"
 	make -C src all
 
-vim: export PRIVATE_REPO_URL = http://192.168.2.1:81
+#vim: export PRIVATE_REPO_URL = http://192.168.2.1:81
 
 .PHONY: dependence vim
 
