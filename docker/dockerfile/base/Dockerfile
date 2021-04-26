@@ -1,11 +1,11 @@
-FROM debian:9 as base_image
+FROM debian:10 as base_image
 
 ARG pkg_install="apt-get -y install"
 
 ENV DEBIAN_FRONTEND noninteractive
 
 LABEL "name"="base-image"
-LABEL "distribution"="debian9"
+LABEL "distribution"="debian10"
 LABEL "description"="common base image for develop"
 LABEL "version"="1.0"
 
@@ -27,7 +27,7 @@ RUN ${pkg_install} apt-utils
 RUN ${pkg_install} dialog locales
 RUN localedef -i en_US -f UTF-8 en_US.UTF-8
 
-RUN useradd -m -U mike
+RUN useradd -m -U -s /bin/bash fabrice
 
 # 安装vim
 RUN ${pkg_install} build-essential
