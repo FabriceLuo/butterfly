@@ -23,7 +23,7 @@ download:
 install:
 	mkdir -p "$(INSTALL_ROOT)"
 	tar -xf "$(DOWNLOAD_FILE)" --strip-components 1 -C "$(INSTALL_ROOT)"
-	echo "export PATH=$(INSTALL_ROOT)/$(BINARY_RELATIVE):$$PATH" >> /home/$(PATH_USER)/.bashrc
+	echo "export PATH=$(INSTALL_ROOT)/$(BINARY_RELATIVE):\$$PATH" >> /home/$(PATH_USER)/.bashrc
 
 all: download install
 	@echo "download-install.mk $(REPO) success"
