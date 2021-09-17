@@ -17,15 +17,16 @@ INSTALL_ROOT    ?= $(PREFIX_DIR)/$(REPO)
 .PHONY: download install
 
 download:
+	mkdir -p "$(DOWNLOAD_ROOT)"
 	curl -L -s "$(DOWNLOAD_URL)" -o "$(DOWNLOAD_FILE)" 
 
 install:
 	mkdir -p "$(INSTALL_ROOT)"
-	tar -xf "$(DOWNLOAD_NAME)" -C "$(INSTALL_ROOT)"
-	echo "export PATH=$(INSTALL_ROOT)/${BINARY_RELATIVE}:$PATH" >> /home/$(PATH_USER)/.bashrc
+	tar -xf "$(DOWNLOAD_FILE)" -C "$(INSTALL_ROOT)"
+	echo "export PATH=$(INSTALL_ROOT)/$(BINARY_RELATIVE):$$PATH" >> /home/$(PATH_USER)/.bashrc
 
 all: download install
-	@echo "download-install.mk needs your attention"
+	@echo "download-install.mk $(REPO) success"
 
 
 # vim:ft=make
