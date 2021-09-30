@@ -8,6 +8,9 @@ OWNER            ?=
 REPO             ?=
 REPO_TYPE 	     ?= latest_release	
 
+PATH_USER        ?= fabrice
+BINARY_RELATIVE  ?= bin
+
 BUTTERFLY_DIR    ?= ./butterfly
 
 DOWNLOAD_ROOT    ?= ./download
@@ -46,6 +49,7 @@ compile:
 
 install:
 	cd $(COMPILE_DIR) && make install
+	echo "export PATH=$(PREFIX_DIR)/$(BINARY_RELATIVE):\$$PATH" >> /home/$(PATH_USER)/.bashrc
 
 finish:
 	@echo "finish after make."
