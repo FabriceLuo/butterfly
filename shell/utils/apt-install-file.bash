@@ -18,6 +18,7 @@ if [[ ! -f "${DEPENDENCE_FILE}" ]]; then
     exit 2
 fi
 
+export -n all_proxy http_proxy https_proxy
 # 先更新下缓存
 apt-get update
 
