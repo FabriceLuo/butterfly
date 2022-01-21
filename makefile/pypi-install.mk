@@ -17,7 +17,8 @@ finish:
 
 install:
 	@echo "Install pypi package($(REPO))"
-	$(PIP) install $(REPO)
+	env -u all_proxy -u http_proxy -u https_proxy $(PIP) install $(REPO)
+	#bash -c "export -n all_proxy http_proxy https_proxy;$(PIP) install $(REPO)"
 
 
 # vim:ft=make
