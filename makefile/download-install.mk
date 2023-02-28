@@ -14,6 +14,8 @@ DOWNLOAD_FILE    = $(DOWNLOAD_ROOT)/$(DOWNLOAD_NAME)
 BINARY_RELATIVE ?= bin
 INSTALL_ROOT    ?= $(PREFIX_DIR)/$(REPO)
 
+TAR_STRIP_COMPONENTS ?= 1
+
 .PHONY: download install
 
 download:
@@ -22,7 +24,7 @@ download:
 
 install:
 	mkdir -p "$(INSTALL_ROOT)"
-	tar -xf "$(DOWNLOAD_FILE)" --strip-components 1 -C "$(INSTALL_ROOT)"
+	tar -xf "$(DOWNLOAD_FILE)" --strip-components $(TAR_STRIP_COMPONENTS) -C "$(INSTALL_ROOT)"
 	echo "export PATH=$(INSTALL_ROOT)/$(BINARY_RELATIVE):\$$PATH" >> /home/$(PATH_USER)/.bashrc
 
 all: download install
