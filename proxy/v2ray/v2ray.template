@@ -1,0 +1,141 @@
+{
+  "log": {
+    "access": "/var/log/v2ray/access.log",
+    "error": "/var/log/v2ray/error.log",
+    "loglevel": "warning"
+  },
+  "api": {
+    "tag": "api",
+    "services": [
+      "HandlerService",
+      "LoggerService",
+      "StatsService"
+    ]
+  },
+  "dns": {
+    "servers": [
+      {
+        "address": "223.5.5.5",
+        "port": 53,
+        "domains": [
+          "geosite:cn"
+        ],
+        "expectIPs": [
+          "geoip:cn"
+        ]
+      },
+      {
+        "address": "223.6.6.6",
+        "port": 53,
+        "domains": [
+          "geosite:cn"
+        ],
+        "expectIPs": [
+          "geoip:cn"
+        ]
+      },
+      {
+        "address": "8.8.8.8",
+        "port": 53,
+        "domains": [
+          "geosite:geolocation-!cn"
+        ]
+      },
+      "localhost"
+    ]
+  },
+  "stats": {},
+  "policy": {
+    "system": {
+      "statsInboundUplink": true,
+      "statsInboundDownlink": true
+    }
+  },
+  "reverse": {},
+  "inbounds": [
+    {
+      "protocol": "socks",
+      "tag": "proxy",
+      "port": 8094,
+      "listen": "0.0.0.0",
+      "sniffing": {
+        "enable": true,
+        "destOverride": [
+          "http",
+          "tls"
+        ]
+      },
+      "settings": {
+        "auth": "noauth",
+        "accounts": [],
+        "udp": true,
+        "ip": null,
+        "address": null,
+        "clients": null
+      },
+      "streamSettings": null
+    },
+    {
+      "port": 8096,
+      "listen": "192.168.2.254",
+      "protocol": "dokodemo-door",
+      "settings": {
+        "network": "tcp,udp",
+        "timeout": 30,
+        "followRedirect": true
+      },
+      "streamSettings": {},
+      "tag": "dokodemo-door",
+      "sniffing": {
+        "enabled": true,
+        "destOverride": [
+          "http",
+          "tls"
+        ]
+      }
+    }
+  ],
+  "outbounds": [
+    {
+      "protocol": "freedom",
+      "settings": {},
+      "tag": "direct"
+    },
+    {
+      "protocol": "blackhole",
+      "setting": {},
+      "tag": "blocked"
+    }
+  ],
+  "routing": {
+    "domainStrategy": "IPOnDemand",
+    "rules": [
+      {
+        "type": "field",
+        "outboundTag": "direct",
+        "domain": [
+          "geosite:cn"
+        ]
+      },
+      {
+        "type": "field",
+        "outboundTag": "direct",
+        "ip": [
+          "geoip:cn",
+          "geoip:private"
+        ]
+      },
+      {
+        "type": "field",
+        "balancerTag": "balancer",
+        "network": "udp,tcp"
+      }
+    ],
+    "balancers": [
+    {
+        "tag": "balancer",
+        "selector": "out"
+    }
+    ]
+  }
+}
