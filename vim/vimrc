@@ -376,8 +376,8 @@ let g:startify_change_to_dir = 0
 let g:startify_change_to_vcs_root = 1
 
 " for template
-let g:email = "luominghao@live.com"
-let g:username = "luominghao"
+let g:email = "fabriceluo@outlook.com"
+let g:username = "fabrice luo"
 let g:license = "MIT"
 
 " for indentline
