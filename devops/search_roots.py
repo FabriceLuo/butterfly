@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
 import os
@@ -86,7 +86,7 @@ def dump(roots, outfile):
         dump_to_fp(roots, fp)
 
 
-@click.command(help='Collect roots of python libs in dirs')
+@click.command(help='Collect roots in dirs')
 @click.option('find_roots',
               '-r',
               '--root',
@@ -99,7 +99,8 @@ def dump(roots, outfile):
               '--sign',
               default=default_signs,
               required=False,
-              multiple=True)
+              multiple=True,
+              show_default=True)
 @click.option('outfile',
               '-o',
               '--outfile',
@@ -111,7 +112,8 @@ def dump(roots, outfile):
               '--exclude-dir',
               default=default_exclude_dirs,
               required=False,
-              multiple=True)
+              multiple=True,
+              show_default=True)
 @click.option('max_depth', '-m', '--max-depth', default=10, required=False)
 @click.option('ver',
               '-v',
