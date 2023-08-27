@@ -49,7 +49,7 @@ compile:
 
 install:
 	cd $(COMPILE_DIR) && make install
-	echo "export PATH=$(PREFIX_DIR)/$(BINARY_RELATIVE):\$$PATH" >> /home/$(PATH_USER)/.pathrc
+	echo "export PATH=$(PREFIX_DIR)/$(BINARY_RELATIVE):\$$PATH" >> $(PATHRC)
 
 finish:
 	@echo "finish after make."

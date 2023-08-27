@@ -3,7 +3,7 @@
 # fabriceluo, 2022-01-20 15:44
 #
 #
-SUBDIRS = $(wildcard */)
+SUBDIRS ?= $(wildcard */)
 
 .PHONY: $(SUBDIRS)
 
@@ -13,7 +13,7 @@ all: $(SUBDIRS)
 
 $(SUBDIRS):
 	@echo "build $@"
-	$(MAKE) -C $@ all
+	. $(PATHRC) && $(MAKE) -C $@ all
 
 # vim:ft=make
 #
