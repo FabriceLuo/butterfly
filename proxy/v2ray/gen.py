@@ -16,8 +16,11 @@ import sys
 
 template_config_file='./v2ray.template'
 config_file='./v2ray.json'
+default_url = 'https://sub.fnff.one/link/GFeitcgtM1XfHz8B?clash=1'
 
-fnf_url = sys.argv[1]
+fnf_url = default_url
+if len(sys.argv)> 1:
+    fnf_url = sys.argv[1]
 
 def get_vmess_oco_template():
     return {

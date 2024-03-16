@@ -1,7 +1,7 @@
 {
   "log": {
-    "access": "/var/log/v2ray/access.log",
-    "error": "/var/log/v2ray/error.log",
+    "access": "/var/log/v2ray_access.log",
+    "error": "/var/log/v2ray_error.log",
     "loglevel": "warning"
   },
   "api": {
@@ -55,7 +55,7 @@
   "inbounds": [
     {
       "protocol": "socks",
-      "tag": "proxy",
+      "tag": "proxy-inbound-socks",
       "port": 8094,
       "listen": "0.0.0.0",
       "sniffing": {
@@ -74,6 +74,23 @@
         "clients": null
       },
       "streamSettings": null
+    },
+    {
+      "port": 8095,
+      "listen": "0.0.0.0",
+      "protocol": "http",
+      "settings": {},
+      "streamSettings": {},
+      "tag": "proxy-inbound-http",
+      "sniffing": {
+        "enabled": false,
+        "destOverride": ["http", "tls"]
+      },
+      "allocate": {
+        "strategy": "always",
+        "refresh": 5,
+        "concurrency": 3
+      }
     },
     {
       "port": 8096,

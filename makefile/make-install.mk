@@ -45,7 +45,7 @@ configure:
 	cd $(COMPILE_DIR) && ./configure --prefix=$(PREFIX_DIR) $(CONFIGURE_PARAMS)
 
 compile:
-	cd $(COMPILE_DIR) && make
+	cd $(COMPILE_DIR) && make -j
 
 install:
 	cd $(COMPILE_DIR) && make install
