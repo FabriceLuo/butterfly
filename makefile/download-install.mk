@@ -16,7 +16,7 @@ INSTALL_ROOT    ?= $(PREFIX_DIR)/$(REPO)
 
 TAR_STRIP_COMPONENTS ?= 1
 
-.PHONY: download install
+.PHONY: download install configure
 
 download:
 	mkdir -p "$(DOWNLOAD_ROOT)"
@@ -27,7 +27,11 @@ install:
 	tar -xf "$(DOWNLOAD_FILE)" --strip-components $(TAR_STRIP_COMPONENTS) -C "$(INSTALL_ROOT)"
 	echo "export PATH=$(INSTALL_ROOT)/$(BINARY_RELATIVE):\$$PATH" >> $(PATHRC)
 
-all: download install
+configure:
+	@echo "download install configure"
+
+
+all: download install configure
 	@echo "download-install.mk $(REPO) success"
 
 
